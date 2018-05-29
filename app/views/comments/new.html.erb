@@ -1,0 +1,24 @@
+<%= form_for(@comment, :url => {:controller => "comments", :action => "create", :article_id => @commentable.id}, :method => :post, local: true) do |form| %>
+  <%= form.hidden_field :parent_id %>
+  <% if flash[:errors_create_comment] %>
+      Error Add Comment:
+      <ul>
+        <% flash[:errors_create_comment].each  do |msg| %>
+          <li><%= msg %></li>
+              <% end %>
+      </ul>
+  <% end %>
+  <p>
+    <%= form.label current_user.user_name %>
+  </p>
+ 
+  <p>
+    <%= form.label :comment %><br>
+    <%= form.text_area :body, :row => 4 %>
+  </p>
+ 
+  <p>
+    <%= form.submit "Post" %>
+  </p>
+ 
+<% end %>

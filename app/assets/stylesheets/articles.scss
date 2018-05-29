@@ -1,0 +1,15 @@
+// Place all the styles related to the Articles controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.AllArticles tr td div:child(odd){
+ background-color: lightgray;	
+}
+
+table.AllArticles tr td div:nth-child(even){
+ background-color: lightgray;	
+}
+
+table.AllArticles tr td div div div:nth-child(even){
+ background-color: none;	
+}

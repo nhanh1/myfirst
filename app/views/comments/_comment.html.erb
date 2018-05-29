@@ -1,0 +1,32 @@
+<div class="showComment" comment_id = <%= comment.id%> >
+	<strong><%= comment.user_name %>:</strong>
+	<% if flash[:comment_id] == comment.id and flash[:errors_edit_comment] %>
+		Error Edit Comment:
+		<ul>
+			<% flash[:errors_edit_comment].each  do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+	<span style="padding: 4px; width: 70%;" class="label_comment" ><%= comment.body %></span><br/>
+	<span style="padding: 4px; width: 70%; font-size: 15px; color: gray;" class="label_created_at" ><%= comment.created_at.strftime('%F %T') %></span>
+	<span style="float: right;" >
+		<%= link_to 'Reply', new_polymorphic_path([@commentable, Comment.new], :parent_id => comment, :article_id => @article) %>
+		<% if current_user.id == comment.user_id %>
+			<%= link_to 'Edit', "#", :class => "edit_link" %>
+			<%= link_to 'Delete', article_comment_path(@article, comment), method: :delete,
+          		data: { confirm: 'Are you sure?' }, :class => "delete_link" %>
+		<% end %>
+	</span>
+</div>
+<div class="editComment" style="display: none;" comment_id = <%= comment.id %> >
+	<strong><%= comment.user_name %>:</strong>
+	<% if current_user.id == comment.user_id %>
+		
+		<%= form_for(comment, :url => {:controller => "comments", :action => "update", :id => comment.id, :article_id => @article.id}, :method => :patch) do |f|%>
+			<span style="padding: 4px;" class="textComment" ><%= f.text_area :body %></span>
+			<span style="float: right;" ><%= submit_tag "Save" %></span>
+  		<% end %>
+	<% end %>
+</div>
+<%= nested_comments comment.children %>

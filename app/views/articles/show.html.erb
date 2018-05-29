@@ -1,0 +1,62 @@
+<% content_for :body do %>
+	<h1>Article Details</h1>
+	<table class="AllArticles" style="width: 70%;">
+		<tr>
+			<td style="width: 50%;">
+				<strong>Title:</strong>
+				<%= @article.title %>
+			</td>
+			<td style="width: 50%;">
+				<strong>Updated:</strong>
+	  			<%= @article.updated_at.strftime('%F %T') %>
+	  		</td>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<strong>Opening:</strong>
+				<%= @article.opening %>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<strong>Photo:</strong>
+				<%= @article.photo %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="width: 50%;" ><strong>Body:</strong></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border: black 1px solid; width: 50%;" ><%= @article.body %></td>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<strong>Conclusion:</strong>
+				<%= @article.conclusion %>
+			</td>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<strong>About the author:</strong>
+				<%= @article.about_author %>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="background-color: aliceblue; width: 50%; " >
+				<%= nested_comments @comments %>
+			</td>
+		</tr>
+		<tr id="addComment">
+			<td colspan="2" style="width: 50%;" >
+				<%= link_to 'New Comments', @article, remote: true, :class => "new_link" %>
+			</td>
+		</tr>
+		<tr id="addCommentForm" style="display: none;" >
+			<td colspan="2" style="width: 50%; background-color: antiquewhite;" >
+				<%= render :partial => "comments/new" %>
+				<%= link_to 'Cancel', @article, remote: true, :class => "cancel_link" %>
+			</td>
+		</tr>
+	</table>
+	<%= link_to 'Back', root_path %>
+<% end %>

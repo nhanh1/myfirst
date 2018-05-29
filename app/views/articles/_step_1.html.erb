@@ -1,0 +1,35 @@
+<%= csrf_meta_tags %>
+<%= form_for @craft_article, url: articles_path, method: :post, local: true do |form| %>
+  <% if @craft_article.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@craft_article.errors.count, "error") %> prohibited
+        this article from being saved:
+      </h2>
+      <ul>
+        <% @craft_article.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <%= form.hidden_field :id %>
+  <%= hidden_field_tag "step", @step %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+ 
+  <p>
+    <%= form.label :opening %><br>
+    <%= form.text_area :opening %>
+  </p>
+ 
+  <p>
+    <%= form.submit "Save", name: "save" %>
+    <%= form.submit "Next", name: "next" %>
+  </p>
+ 
+<% end %>
+<%= link_to 'Cancel', root_path %>

@@ -1,0 +1,38 @@
+<% content_for :body do %>
+  <h1>Listing articles</h1>
+	<br/>
+	<table style="width: 70%;">
+	  <%= link_to 'New article', new_article_path %>
+	  <tr>
+	    <th>Title</th>
+	    <th>Opening</th>
+	    <th>Photo</th>
+	    <th>Body</th>
+	    <th>Conclusion</th>
+	    <th>About the Author</th>
+	    <th>Upload Date</th>
+	    <th></th>
+	  </tr>
+	 
+	  <% @articles.each do |article| %>
+	    <tr>
+	      <td style="width: 5%;"><%= article.title %></td>
+	      <td style="width: 10%;"><%= article.opening %></td>
+	      <td style="width: 10%;"><%= article.photo %></td>
+	      <td style="width: 35%;"><%= article.body %></td>
+	      <td style="width: 10%;"><%= article.conclusion %></td>
+	      <td style="width: 10%;"><%= article.about_author %></td>
+	      <td style="width: 10%;"><%= article.created_at.strftime('%F %T') %></td>
+	      <td style="width: 10%;">
+	      	<%= link_to 'Show', article_path(article) %>
+	      	<% if user_signed_in? %>
+		        <% if current_user.id == article.user_id %>
+			        <%= link_to 'Edit', edit_article_path(article) %>
+			        <%= link_to 'Destroy', article_path(article), method: :delete, data: { confirm: 'Are you sure?' } %>
+		        <% end %>
+	        <% end %>
+	      </td>
+	    </tr>
+	  <% end %>
+	</table>
+<% end %>
